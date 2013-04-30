@@ -1,0 +1,8 @@
+.ui-slider-horizontal {
+	height: 5px;
+}
+
+.ui-slider-handle {
+	height: 12px !important;
+	width: 12px !important;
+}
