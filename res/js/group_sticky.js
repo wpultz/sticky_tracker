@@ -68,23 +68,47 @@ $(function(){
 	$aw2.bind( "click", ".j-saveNewSticky", function() {
 		// gather the inputs
 		var data = stickyCommon.getFields( $(this).closest( ".j-addStickyModal" ).find( ".j-sticky-note" ) );
-		var newSticky = stickyCommon.cloneToContainer( ".j-sticky-small", ".sticky-bar" );
-		stickyCommon.setFields( $(newSticky), data );
 
-		// set up the sticky slider on the small sticky
-		$(".j-sticky-slider", $(newSticky)).slider({
-			min: 0, max: 100, step: 10, value: data.percent_complete
-		});
+		var _id = "";
+		if( $aw2.structKeyExists( data, "_id" ) && data._id.length > 0 ) {
+			_id = data._id;
+			$aw2.structDelete( data, "_id" );
+		}
+		if( _id.length > 0 ) {
+			$aw2.call( "ajax.cfc?method=remoteCall", { "component": "sticky", "function": "saveSticky", args: $.toJSON( { _id: _id, data: data } ) },
+				function( response ){
+					var sticky = $(".j-sticky-mongoid[key=_id][value=" + _id + "]").closest( ".j-sticky-small" );
+					stickyCommon.setFields( $(sticky), data );
 
-		$("#j-addStickyModal").jqmHide();
+					// set up the sticky slider on the small sticky
+					$(".j-sticky-slider", $(sticky)).slider({
+						min: 0, max: 100, step: 10, value: data.percent_complete
+					});
 
-		$aw2.call( "ajax.cfc?method=remoteCall", { "component": "sticky", "function": "putNewSticky", args: $.toJSON( { data: data } ) },
-			function( response ) {
-				alert( "saved" );
-			},
-			function( balls ) {
-				alert( "balls" );
-			});
+					$("#j-addStickyModal").jqmHide();
+				},
+				function( balls ) {
+					alert( "balls" );
+				});
+		} else {
+			$aw2.call( "ajax.cfc?method=remoteCall", { "component": "sticky", "function": "putNewSticky", args: $.toJSON( { data: data } ) },
+				function( response ){
+					var newSticky = stickyCommon.cloneToContainer( ".j-sticky-small", ".sticky-bar" );
+					stickyCommon.setFields( $(newSticky), data );
+
+					// set up the sticky slider on the small sticky
+					$(".j-sticky-slider", $(newSticky)).slider({
+						min: 0, max: 100, step: 10, value: data.percent_complete
+					});
+
+					$("#j-addStickyModal").jqmHide();
+				},
+				function( balls ) {
+					alert( "balls" );
+				});
+		}
+
+		
 	});
 
 
