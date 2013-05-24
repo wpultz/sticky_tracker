@@ -45,8 +45,9 @@ function putNewSticky( data ) {
 function saveSticky( _id, data ) {
 	var res = { _success: true, _message: "sticky updated successfully" };
 	try {
-		var qry = { _id: MongoObjectId( arguments._id ), $set: arguments.data };
-		res = MongoCollectionFindAndModify( datasource="sticky_mongo", collection=this.stickyCollection, query=qry, upsert=true, returnnew=true );
+		var qry = { _id: MongoObjectId( arguments._id ) };
+		var update = { $set: data };
+		res = MongoCollectionFindAndModify( datasource="sticky_mongo", collection=this.stickyCollection, query=qry, update=update, upsert=true, returnnew=true );
 	} catch( any err ) {
 		err._success = false;
 		err._message = "Error encountered while updating sticky note";
@@ -56,7 +57,7 @@ function saveSticky( _id, data ) {
 	if( IsNull( res ) ) {
 		return { _success: false, _message: "Unexpected error encountered while saving sticky" };
 	}
-	return { _success: true, _message: "Sticky successfully saved", _id: res };
+	return { _success: true, _message: "Sticky successfully saved", _sticky: request.commonSticky.cleanIdFormat( res ) };
 }
 
 

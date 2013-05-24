@@ -77,15 +77,17 @@ $(function(){
 		if( _id.length > 0 ) {
 			$aw2.call( "ajax.cfc?method=remoteCall", { "component": "sticky", "function": "saveSticky", args: $.toJSON( { _id: _id, data: data } ) },
 				function( response ){
-					var sticky = $(".j-sticky-mongoid[key=_id][value=" + _id + "]").closest( ".j-sticky-small" );
-					stickyCommon.setFields( $(sticky), data );
+					if( $aw2.structKeyExists( response, "_sticky" ) && $aw2.structKeyExists( response._sticky, "_id" ) ) {
+						var sticky = $(".j-sticky-mongoid[key=_id][value=" + response._sticky._id + "]").closest( ".j-sticky-small" );
+						stickyCommon.setFields( $(sticky), response._sticky );
 
-					// set up the sticky slider on the small sticky
-					$(".j-sticky-slider", $(sticky)).slider({
-						min: 0, max: 100, step: 10, value: data.percent_complete
-					});
+						// set up the sticky slider on the small sticky
+						$(".j-sticky-slider", $(sticky)).slider({
+							min: 0, max: 100, step: 10, value: response._sticky.percent_complete
+						});
 
-					$("#j-addStickyModal").jqmHide();
+						$("#j-addStickyModal").jqmHide();
+					}
 				},
 				function( balls ) {
 					alert( "balls" );
