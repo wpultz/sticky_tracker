@@ -99,13 +99,17 @@ $(function(){
 		} else {
 			$aw2.call( "ajax.cfc?method=remoteCall", { "component": "sticky", "function": "putNewSticky", args: $.toJSON( { data: data } ) },
 				function( response ){
-					var newSticky = stickyCommon.cloneToContainer( ".j-sticky-small", ".sticky-bar[data-dev_stage=indev]" );
-					stickyCommon.setFields( $(newSticky), data );
+					if( $aw2.structKeyExists( response, "_id" ) && response._id.length > 0 ) {
+						data._id = response._id;
 
-					// set up the sticky slider on the small sticky
-					$(".j-sticky-slider", $(newSticky)).slider({
-						min: 0, max: 100, step: 10, value: data.percent_complete
-					});
+						var newSticky = stickyCommon.cloneToContainer( ".j-sticky-small", ".sticky-bar[data-dev_stage=indev]" );
+						stickyCommon.setFields( $(newSticky), data );
+
+						// set up the sticky slider on the small sticky
+						$(".j-sticky-slider", $(newSticky)).slider({
+							min: 0, max: 100, step: 10, value: data.percent_complete
+						});
+					}
 
 					$("#j-addStickyModal").jqmHide();
 				},

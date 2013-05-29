@@ -36,7 +36,7 @@ function putNewSticky( data ) {
 
 	console( res );
 	if( !IsNull( res ) && res.length() > 0 ) {
-		return { _success: true, _message: "Sticky updated", _result: res };
+		return { _success: true, _message: "Sticky updated", _id: res };
 	}
 	return { _success: false, _message: "balls" };
 }
