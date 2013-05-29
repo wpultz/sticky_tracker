@@ -2,7 +2,7 @@
 
 	<input type="hidden" value="" class="j-sticky-mongoid" key="_id" />
 	<input type="hidden" value="" class="j-sticky-percent-complete" key="percent_complete" />
-	<input type="hidden" value="" class="j-sticky-dev-stage" key="dev_stage" />
+	<input type="hidden" value="indev" class="j-sticky-dev-stage" key="dev_stage" />
 
 	<div class="sticky-handle j-sticky-handle"></div>
 	<table style="width: 100%;">

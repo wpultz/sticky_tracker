@@ -37,7 +37,11 @@ $(function(){
 			if( $aw2.structKeyExists( response, "_success" ) && response._success && $aw2.structKeyExists( response, "_list" ) ) {
 				if( $aw2.isArray( response._list ) && ( response._list.length > 0 ) ) {
 					for( var i = 0; i < response._list.length; i++ ) {
-						var sticky = stickyCommon.cloneToContainer( ".j-sticky-small", ".sticky-bar" );
+						var stage = "unknown";
+						if( $aw2.structKeyExists( response._list[i], "dev_stage" ) && response._list[i].dev_stage.length > 0 ) {
+							stage = response._list[i].dev_stage;
+						}
+						var sticky = stickyCommon.cloneToContainer( ".j-sticky-small", ".j-sticky-bar[data-dev_stage=" + stage + "]" );
 						stickyCommon.setFields( sticky, response._list[i] );
 					}
 					setupSliders();
@@ -95,7 +99,7 @@ $(function(){
 		} else {
 			$aw2.call( "ajax.cfc?method=remoteCall", { "component": "sticky", "function": "putNewSticky", args: $.toJSON( { data: data } ) },
 				function( response ){
-					var newSticky = stickyCommon.cloneToContainer( ".j-sticky-small", ".sticky-bar" );
+					var newSticky = stickyCommon.cloneToContainer( ".j-sticky-small", ".sticky-bar[data-dev_stage=indev]" );
 					stickyCommon.setFields( $(newSticky), data );
 
 					// set up the sticky slider on the small sticky
@@ -152,5 +156,35 @@ $(function(){
 	});
 
 	// make the stickies sortable/draggable
-	$(".j-sticky-bar").sortable( { handle: "div.j-sticky-handle", revert: true, tolerance: "pointer" } );
+	$(".j-sticky-bar").sortable( {
+			handle: "div.j-sticky-handle",
+			revert: true,
+			tolerance: "pointer",
+			connectWith: ".j-sticky-bar",
+			update: function( event, ui ) {
+				console.log( event );
+				console.log( ui );
+				var $sticky = $(ui.item);
+				var $_idInp = $($sticky.find( "[key=_id]" ));
+				var $stageInp = $($sticky.find( "[key=dev_stage]" ));
+				var toStage = $sticky.closest( ".j-sticky-bar" ).attr( "data-dev_stage" );
+				$stageInp.val( toStage );
+
+				var _id = $_idInp.val();
+				var data = { dev_stage: toStage };
+				$aw2.call( "ajax.cfc?method=remoteCall", { "component": "sticky", "function": "saveSticky", args: $.toJSON( { _id: _id, data: data } ) },
+				function( response ){
+					if( $aw2.structKeyExists( response, "_sticky" ) && $aw2.structKeyExists( response._sticky, "_id" ) ) {
+						// all good
+					} else {
+						console.log( "bollocks" );
+						console.log( response );
+					}
+				},
+				function( balls ) {
+					alert( "balls" );
+				});
+
+			}
+		});
 });

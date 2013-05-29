@@ -2,9 +2,11 @@
 
 <button class="jqModal">add Sticky</button>
 
+<div class="board clearfix">
+	<div class="sticky-bar j-sticky-bar" data-dev_stage="indev"></div>
 
-<div class="sticky-bar j-sticky-bar"></div>
-
+	<div class="sticky-bar j-sticky-bar" data-dev_stage="complete"></div>
+</div>
 
 <div class="j-addStickyModal jqmWindow" id="j-addStickyModal">
 	<div class="modal-header j-modal-header j-modal-handle">
