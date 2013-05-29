@@ -33,15 +33,12 @@
 
 
 <div class="j-addStickyModal jqmWindow" id="j-addStickyModal">
-	<div class="modal-header j-modal-header j-modal-handle">
-		<h2>Add a Sticky</h2>
-	</div>
 	<!--- include the sticky detail template, to get the proper fields --->
 	<span id="j-stickyDetailPlaceholder"></span>
-	<div class="modal-footer">
-		<button class="cancel-sticky jqmClose">Cancel</button>
-		<button class="j-saveNewSticky">Save</button>
-	</div>
+	
+	<button class="cancel-sticky jqmClose">Cancel</button>
+	<button class="j-saveNewSticky">Save</button>
+	
 </div>
 
 

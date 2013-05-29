@@ -101,6 +101,7 @@
 	.j-sticky-detail {
 		height: 400px;
 		width: 400px;
+		margin: 0px;
 	}
 
 	.j-sticky-small {
