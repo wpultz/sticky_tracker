@@ -3,10 +3,34 @@
 <button class="jqModal">add Sticky</button>
 
 <div class="board clearfix">
-	<div class="sticky-bar j-sticky-bar" data-dev_stage="indev"></div>
 
-	<div class="sticky-bar j-sticky-bar" data-dev_stage="complete"></div>
+	<table>
+		<tr>
+			<td>
+				<div class="stage-header">In Development</div>
+				<div class="bar-container">
+					<div class="sticky-bar j-sticky-bar" data-dev_stage="indev"></div>
+				</div>
+			</td>
+			<td>
+				<div class="stage-header">Completed</div>
+				<div class="bar-container">
+					<div class="sticky-bar j-sticky-bar" data-dev_stage="complete"></div>
+				</div>
+			</td>
+		</tr>
+		<tr colspan="2">
+			<td>
+				<div class="stage-header">Unknown Status</div>
+				<div class="bar-container">
+					<div class="sticky-bar j-sticky-bar" data-dev_stage="unknown"></div>
+				</div>
+			</td>
+		</tr>
+	</table>
+
 </div>
+
 
 <div class="j-addStickyModal jqmWindow" id="j-addStickyModal">
 	<div class="modal-header j-modal-header j-modal-handle">

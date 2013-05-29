@@ -1,11 +1,26 @@
 	.sticky-bar {
-		max-width: 500px;
-		min-width: 200px;
 		background-color: #2C1616;
 		min-height: 250px;
 		padding: 10px;
+	}
+
+	.bar-container {
+		max-width: 550px;
+		min-width: 350px;
+		margin-right: 10px;
+		margin-bottom: 10px;
+	}
+
+	.board table {
+		border-collapse: separate;
+		border-spacing: 10px;
+	}
+
+	.board td {
+		vertical-align: top;
+		background-color: #2C1616;
+		border-bottom: solid 10px #CCCCCC;
 		margin: 10px;
-		float: left;
 	}
 	
 	.j-sticky-note {
@@ -72,23 +87,12 @@
 	}
 	
 	
-	.j-sticky-garbage {
-		background-color: #000000;
-		border: 2px solid #FFFFFF;
-		border-radius: 25px;
-		height: 500px;
-	}
-	
 	#sticky-container {
 		margin: 20px;
 		padding: 20px;
 		height: 100%;
 	}
-	
-	#garbage-container {
-		width: 20%
-	}
-	
+
 	body {
 		background: url( "res/img/bg.jpg" ) repeat scroll 0 0 transparent;
 	}
@@ -108,4 +112,14 @@
 		width: 90%;
 		margin-right: auto;
 		margin-left: auto;
+	}
+
+	.stage-header, .stage-footer {
+		background-color: #CCCCCC;
+		font-family: Verdana,Geneva,sans-serif;
+		padding: 5px;
+	}
+
+	.clearfix {
+		clear: both;
 	}
