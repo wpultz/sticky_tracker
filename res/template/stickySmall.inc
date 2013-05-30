@@ -12,7 +12,13 @@
 	<div class="sticky-field j-sticky-user" contenteditable="true" key="user"></div>
 	<div class="sticky-field" contenteditable="true" key="goal_dt"></div>
 	<div class="sticky-slider j-sticky-slider"></div>
-	<button class="btn sticky-more-info j-sticky-more-info">Details</button>
+	<!---
+	<button class="btn sticky-more-info j-sticky-more-info ui-icon-pencil">Details</button>
+	--->
+	<div class="btn sticky-more-info j-sticky-more-info ui-icon-pencil"></div>
 	
+	<div class="btn sticky-note-remove j-sticky-remove ui-icon-close"></div>
+	<!---
 	<img src="res/img/btn_closelabel.png" class="j-sticky-remove sticky-note-remove" />
+--->
 </div> <!--- /.j-sticky-note --->

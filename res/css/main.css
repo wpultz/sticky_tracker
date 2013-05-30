@@ -51,7 +51,21 @@
 		position: absolute;
 		bottom: 0;
 		right: 0;
+		height: 16px;
+		width: 16px;
 		cursor: pointer;
+		background-image : url( "/images/ui-icons_222222_256x240.png" );
+	}
+
+	.sticky-more-info {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		height: 16px;
+		width: 16px;
+		cursor: pointer;
+		background-image : url( "/images/ui-icons_222222_256x240.png" );
+		}
 	}
 	
 	.sticky-handle {
