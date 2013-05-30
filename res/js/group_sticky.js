@@ -50,29 +50,50 @@ $(function(){
 
 
 	// get the stickies from mongo	
-	$aw2.callJSON( "ajax.cfc?method=remoteCall", { "component": "sticky", "function": "getStickies", args: "{}" },
-		function( response ) {
-			if( $aw2.structKeyExists( response, "_success" ) && response._success && $aw2.structKeyExists( response, "_list" ) ) {
-				if( $aw2.isArray( response._list ) && ( response._list.length > 0 ) ) {
-					for( var i = 0; i < response._list.length; i++ ) {
-						var stage = "unknown";
-						if( $aw2.structKeyExists( response._list[i], "dev_stage" ) && response._list[i].dev_stage.length > 0 ) {
-							stage = response._list[i].dev_stage;
+	var populateStickies = function( criteria ) {
+		$aw2.callJSON( "ajax.cfc?method=remoteCall", { "component": "sticky", "function": "getStickies", "args": $.toJSON( { criteria: criteria } ) },
+			function( response ) {
+				if( $aw2.structKeyExists( response, "_success" ) && response._success && $aw2.structKeyExists( response, "_list" ) ) {
+					if( $aw2.isArray( response._list ) && ( response._list.length > 0 ) ) {
+						for( var i = 0; i < response._list.length; i++ ) {
+							var stage = "unknown";
+							if( $aw2.structKeyExists( response._list[i], "dev_stage" ) && response._list[i].dev_stage.length > 0 ) {
+								stage = response._list[i].dev_stage;
+							}
+							var sticky = stickyCommon.cloneToContainer( ".j-sticky-small", ".j-sticky-bar[data-dev_stage=" + stage + "]" );
+							stickyCommon.setFields( sticky, response._list[i] );
 						}
-						var sticky = stickyCommon.cloneToContainer( ".j-sticky-small", ".j-sticky-bar[data-dev_stage=" + stage + "]" );
-						stickyCommon.setFields( sticky, response._list[i] );
+						setupSliders();
 					}
-					setupSliders();
 				}
-			}
-		},
-		function( a, b, c ) {
-			console.log( "ERROR" );
-			console.log( a );
-			console.log( b );
-			console.log( c );
-		});
+			},
+			function( a, b, c ) {
+				console.log( "ERROR" );
+				console.log( a );
+				console.log( b );
+				console.log( c );
+			});
+		};
 
+	// go ahead and populate the stickies into their areas.
+	populateStickies( {} );
+
+	$aw2.bind( "click", "#run-search", function() {
+		var userSearch = $("#search-users").val();
+
+		var criteria = {};
+
+		criteria.user = userSearch;
+
+		$(".board .j-sticky-small").remove();
+		populateStickies( criteria );
+	});
+
+	$aw2.bind( "click", "#reset-search", function() {
+		$("#search-users").val( "" );
+		$(".board .j-sticky-small").remove();
+		populateStickies( {} );
+	});
 
 	// initialize the sliders on the small stickies
 	$(".j-sticky-slider").slider({
@@ -124,7 +145,7 @@ $(function(){
 						});
 					}
 
-					$("#j-addStickyModal").jqmHide();
+					$("#j-addStickyModal").dialog( "close" );
 				},
 				function( balls ) {
 					alert( "balls" );
@@ -176,6 +197,11 @@ $(function(){
 		// TODO - set the slider value
 
 		//$("#j-addStickyModal").jqmShow();
+		$("#j-addStickyModal").dialog( "open" );
+	});
+
+	$aw2.bind( "click", ".j-new-sticky", function() {
+		stickyCommon.clearFields( $("#j-addStickyModal") );
 		$("#j-addStickyModal").dialog( "open" );
 	});
 

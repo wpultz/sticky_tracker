@@ -25,7 +25,19 @@
 		</tr>
 		<tr>
 			<td><label>Assignee</label></td>
-			<td><div class="sticky-field" contenteditable="true" key="user"></div></td>
+			<cfif IsDefined( "page.users" ) && IsArray( page.users )>
+				<td>
+					<cfoutput>
+					<select class="" key="user">
+						<cfloop array="#page.users#" index="user">
+						<option value="#user.username#">#user.display_name#</option>
+						</cfloop>
+					</select>
+					</cfoutput>
+				</td>
+			<cfelse>
+				<td><div class="sticky-field" contenteditable="true" key="user"></div></td>
+			</cfif>
 		</tr>
 		<tr>
 			<td><label>Notes</label></td>

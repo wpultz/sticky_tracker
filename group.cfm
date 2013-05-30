@@ -1,6 +1,30 @@
+<!---
+
+--->
+
+<cfsilent>
+<cfscript>
+page = {};
+page.users = CreateObject( "component.user" ).init().listUsers()._users;
+</cfscript>
+</cfsilent>
+
 <cfinclude template="res/template/common/header.inc" />
 
-<button class="jqModal">add Sticky</button>
+<button class="j-new-sticky">Add Sticky</button>
+
+<cfoutput>
+<select id="search-users">
+	<option value="">--</option>
+	<cfloop array="#page.users#" index="user">
+	<option value="#user.username#">#user.display_name#</option>
+	</cfloop>
+</select>
+</cfoutput>
+
+<button id="run-search">Search</button>
+<button id="reset-search">Reset</button>
+
 
 <div class="board clearfix">
 

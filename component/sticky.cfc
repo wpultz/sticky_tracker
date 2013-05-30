@@ -4,10 +4,11 @@
 
 this.stickyCollection = "sticky_notes";
 
-struct function getStickies() {
+struct function getStickies( criteria ) {
 	var stickyList = [];
+	console( arguments.criteria );
 	try {
-		stickyList = MongoCollectionFind( "sticky_mongo", this.stickyCollection, {} );
+		stickyList = MongoCollectionFind( "sticky_mongo", this.stickyCollection, arguments.criteria );
 	} catch ( any err ) {
 		// ignore, let it return an empty list
 		console( "error encountered while finding stickies" );

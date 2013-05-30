@@ -6,7 +6,8 @@ function StickyCommon() {
 		var fields = $("[key]", $editable);
 		for( var i = 0; i < fields.length; i++ ) {
 			var $field = $(fields[i]);
-			if( $field.prop( "tagName" ).toLowerCase() == "input" ) {
+			var inputTag = $field.prop( "tagName" ).toLowerCase();
+			if( inputTag == "input" || inputTag == "select" ) {
 				vals[$field.attr( "key")] = $field.val();
 			} else {
 				vals[$field.attr( "key")] = $field.text();
@@ -21,7 +22,8 @@ function StickyCommon() {
 	this.setFields = function( $editable, fields ) {
 		$.each( fields, function( i, v ) {
 			var $input = $("[key=" + i + "]", $editable);
-			if( $input.prop( "tagName" ).toLowerCase() == "input" ) {
+			var inputTag = $input.prop( "tagName" ).toLowerCase();
+			if( inputTag == "input" || inputTag == "select" ) {
 				$input.val( v );
 			} else {
 				$input.text( v );
@@ -34,7 +36,8 @@ function StickyCommon() {
 		var fields = $("[key]", $editable);
 		for( var i = 0; i < fields.length; i++ ) {
 			var $field = $(fields[i]);
-			if( $field.prop( "tagName" ).toLowerCase() == "input" ) {
+			var inputTag = $field.prop( "tagName" ).toLowerCase();
+			if( inputTag == "input" || inputTag == "select" ) {
 				$field.val( "" );
 			} else {
 				$field.text( "" );
