@@ -32,13 +32,9 @@
 </div>
 
 
-<div class="j-addStickyModal jqmWindow" id="j-addStickyModal">
+<div class="j-addStickyModal j-modal jqDnR" id="j-addStickyModal">
 	<!--- include the sticky detail template, to get the proper fields --->
 	<span id="j-stickyDetailPlaceholder"></span>
-	
-	<button class="cancel-sticky jqmClose">Cancel</button>
-	<button class="j-saveNewSticky">Save</button>
-	
 </div>
 
 

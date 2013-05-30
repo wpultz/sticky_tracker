@@ -10,6 +10,24 @@ $(function(){
 	$("#j-stickyDetailPlaceholder").remove();
 	$(".btn", modalDetail).remove();
 
+	$("#j-addStickyModal").dialog({
+		autoOpen: false,
+		height: 550,
+		width: 450,
+		modal: true,
+		position: "top",
+		buttons: {
+			"Save" : function() {
+				var data = stickyCommon.getFields( $(this).find( ".j-sticky-note" ) );
+				saveSticky( data );
+			},
+			"Cancel" : function() {
+				$(this).dialog( "close" );
+			}
+		}
+	});
+
+/*
 	// initialize the add new modal
 	$("#j-addStickyModal").jqm({
 		toTop: true,
@@ -18,7 +36,7 @@ $(function(){
 			hash.w.fadeOut( '2000', function() { hash.o.remove(); stickyCommon.clearFields( hash.w ); } );
 		}
 	});
-
+*/
 	var setupSliders = function() {
 		$(".j-sticky-slider").slider({
 			min: 0,
@@ -63,16 +81,11 @@ $(function(){
 			step: 10,
 			slide: function( event, ui ) {
 				$(this).closest( ".j-sticky-note" ).find( ".j-sticky-percent-complete" ).val( ui.value );
-				console.log( $(this).closest( ".j-sticky-note" ).find( ".j-sticky-percent-complete" ).val() );
 			}
 		});
 	
 
-	// new sticky save
-	$aw2.bind( "click", ".j-saveNewSticky", function() {
-		// gather the inputs
-		var data = stickyCommon.getFields( $(this).closest( ".j-addStickyModal" ).find( ".j-sticky-note" ) );
-
+	var saveSticky = function( data ) {
 		var _id = "";
 		if( $aw2.structKeyExists( data, "_id" ) && data._id.length > 0 ) {
 			_id = data._id;
@@ -90,7 +103,7 @@ $(function(){
 							min: 0, max: 100, step: 10, value: response._sticky.percent_complete
 						});
 
-						$("#j-addStickyModal").jqmHide();
+						$("#j-addStickyModal").dialog( "close" );
 					}
 				},
 				function( balls ) {
@@ -116,9 +129,15 @@ $(function(){
 				function( balls ) {
 					alert( "balls" );
 				});
-		}
+		}		
+	};
 
-		
+	// new sticky save
+	$aw2.bind( "click", ".j-saveNewSticky", function() {
+		// gather the inputs
+		var data = stickyCommon.getFields( $(this).closest( ".j-addStickyModal" ).find( ".j-sticky-note" ) );
+
+		saveSticky( data );
 	});
 
 
@@ -156,7 +175,8 @@ $(function(){
 
 		// TODO - set the slider value
 
-		$("#j-addStickyModal").jqmShow();
+		//$("#j-addStickyModal").jqmShow();
+		$("#j-addStickyModal").dialog( "open" );
 	});
 
 	// make the stickies sortable/draggable
@@ -166,8 +186,6 @@ $(function(){
 			tolerance: "pointer",
 			connectWith: ".j-sticky-bar",
 			update: function( event, ui ) {
-				console.log( event );
-				console.log( ui );
 				var $sticky = $(ui.item);
 				var $_idInp = $($sticky.find( "[key=_id]" ));
 				var $stageInp = $($sticky.find( "[key=dev_stage]" ));
@@ -191,4 +209,8 @@ $(function(){
 
 			}
 		});
+
+	$aw2.bind( "click", ".ui-widget-overlay", function() {
+		$(".j-modal").dialog( "close" );
+	});
 });

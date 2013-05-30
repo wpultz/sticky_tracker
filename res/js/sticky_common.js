@@ -50,14 +50,9 @@ function StickyCommon() {
 	};
 
 	this.cloneToContainer = function( cloneSelector, parentSelector ) {
-		console.log( "1" );
 		var $markup = $(cloneSelector + ".j-default-hidden").clone();
 		$markup.removeClass( "j-default-hidden" ).removeAttr( "style" );
-		console.log( "2" );
 		$(parentSelector).append( $markup );
 		return $markup;
-		//var ball = $markup.appendTo( $(parentSelector) ).removeClass( "j-default-hidden" ).removeAttr( "style" );
-		//console.log( ball );
-		//return ball;
 	};
 }
