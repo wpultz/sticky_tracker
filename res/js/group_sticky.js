@@ -164,9 +164,13 @@ $(function(){
 
 	// bind single sticky removing
 	$aw2.bind( "click", ".j-sticky-remove", function() {
+		if( !confirm( "Delete sticky?" ) ) {
+			return;
+		}
+
 		var $toRemove = $(this);
 		var _id = $(this).closest( ".j-sticky-note" ).find( ".j-sticky-mongoid" ).val();
-		// TODO : add in the bit for removing from mongo
+		
 		$aw2.callJSON( "ajax.cfc?method=remoteCall", { component: "sticky", "function": "removeSticky", args: $.toJSON( { _id: _id } ) },
 		 	function( response ) {
 		 		if( $aw2.structKeyExists( response, "_success" ) && response._success ) {
