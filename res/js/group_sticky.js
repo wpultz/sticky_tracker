@@ -175,7 +175,6 @@ $(function(){
 		 	function( response ) {
 		 		if( $aw2.structKeyExists( response, "_success" ) && response._success ) {
 		 			$toRemove.closest( ".j-sticky-note" ).remove();
-		 			alert( "sticky removed" );
 		 		} else {
 		 			var message = "Error removing sticky";
 		 			if( $aw2.structKeyExists( response, "_message" ) ) {
