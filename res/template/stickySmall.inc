@@ -4,13 +4,13 @@
 	<input type="hidden" value="" class="j-sticky-dev-stage" key="dev_stage" />
 	<input type="hidden" value="" class="j-sticky-desc" key="desc" />
 	<input type="hidden" value="" class="j-sticky-notes" key="notes" />
-	<input type="hidden" value="" class="" key="ticket_number" />
 
 
 	<div class="sticky-handle j-sticky-handle"></div>
 	<div class="sticky-field sticky-title j-sticky-title" contenteditable="true" key="title"></div>
 	<div class="sticky-field j-sticky-user" contenteditable="true" key="user"></div>
 	<div class="sticky-field" contenteditable="true" key="goal_dt"></div>
+	<div class="sticky-field" contenteditable="true" key="ticket_number"></div>
 	<div class="sticky-slider j-sticky-slider"></div>
 	<!---
 	<button class="btn sticky-more-info j-sticky-more-info ui-icon-pencil">Details</button>
